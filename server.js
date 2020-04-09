@@ -11,10 +11,18 @@ var cheerio = require("cheerio");
 // Require all models
 var db = require("./models");
 
-var PORT = 3000;
+var PORT = process.env.PORT || 3000;
 
 // Initialize Express
 var app = express();
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+var exphbs = require("express-handlebars");
+
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
 
 // Configure middleware
 
@@ -49,21 +57,25 @@ app.get("/scrape", function(req, res) {
       var result = [];
 
       // Add the text and href of every link, and save them as properties of the result object
-      var title = $(this).text();
+      var title = $(this).find("h3").find("a").text();
       var link = $(this).find("h3").find("a").attr("href");
+      var summary = $(this).find("p").text();
 
 
       result.push({
         title: title,
-        link: link
+        link: link,
+        summary: summary
       });
-
+      
+      console.log(result);
       // Create a new Article using the `result` object built from scraping
       db.Article.create(result)
         .then(function(dbArticle) {
           // View the added result in the console
-          console.log(dbArticle);
-          console.log(result);
+          // console.log(dbArticle);
+          // console.log(result);
+          console.log("articles added to database")
         })
         .catch(function(err) {
           // If an error occurred, log it
@@ -73,15 +85,19 @@ app.get("/scrape", function(req, res) {
     
     // Send a message to the client
     res.send("Scrape Complete");
+    console.log("articles added to database")
   });
 });
 
 // Route for getting all Articles from the db
 app.get("/articles", function(req, res) {
-  // TODO: Finish the route so it grabs all of the articles
   db.Article.find({})
     .then(function(dbArticle) {
-      res.json(dbArticle);
+      var articleArray = [];
+      for (var i=0; i <10; i++){
+        articleArray.push({headline: dbArticle[i].title, link: dbArticle[i].link, summary: dbArticle[i].summary});
+    }
+      res.render("index", {article: articleArray});
     })
     .catch(function(err) {
       // If an error occurs, send it back to the client
