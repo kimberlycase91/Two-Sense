@@ -28,11 +28,9 @@ app.set("view engine", "handlebars");
 
 // // Use morgan logger for logging requests
 // app.use(logger("dev"));
-// // Parse request body as JSON
-// app.use(express.urlencoded({ extended: true }));
-// app.use(express.json());
-// // Make public a static folder
-// app.use(express.static("public"));
+
+// Make public a static folder
+app.use(express.static("public"));
 
 // Connect to the Mongo DB
 // mongoose.connect("mongodb://localhost/unit18Populater", { useNewUrlParser: true });
@@ -67,7 +65,7 @@ app.get("/scrape", function(req, res) {
         link: link,
         summary: summary
       });
-      
+
       console.log(result);
       // Create a new Article using the `result` object built from scraping
       db.Article.create(result)
@@ -90,12 +88,12 @@ app.get("/scrape", function(req, res) {
 });
 
 // Route for getting all Articles from the db
-app.get("/articles", function(req, res) {
+app.get("/", function(req, res) {
   db.Article.find({})
     .then(function(dbArticle) {
       var articleArray = [];
       for (var i=0; i <10; i++){
-        articleArray.push({headline: dbArticle[i].title, link: dbArticle[i].link, summary: dbArticle[i].summary});
+        articleArray.push({headline: dbArticle[i].title, link: dbArticle[i].link, summary: dbArticle[i].summary, id: dbArticle[i]._id});
     }
       res.render("index", {article: articleArray});
     })
@@ -107,16 +105,14 @@ app.get("/articles", function(req, res) {
 
 // Route for grabbing a specific Article by id, populate it with it's note
 app.get("/articles/:id", function(req, res) {
-  // TODO
-  // ====
-  // Finish the route so it finds one article using the req.params.id,
+  // route so it finds one article using the req.params.id,
   // and run the populate method with "note",
   // then responds with the article with the note included
   db.Article.findOne({_id: req.params.id})
     // Specify that we want to populate the retrieved libraries with any associated books
     .populate("comment")
     .then(function(dbArticle) {
-      // If any Libraries are found, send them to the client with any associated Books
+      console.log(dbArticle);
       res.json(dbArticle);
     })
     .catch(function(err) {

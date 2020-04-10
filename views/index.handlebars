@@ -2,10 +2,20 @@
 <div class="row">
     <div class="col-md-6">
         <h2>News</h2>
-            {{#each article}}
-            <a target="_blank" href="{{this.link}}"><h3>{{this.headline}}</h3></a>
-            <p>{{this.summary}}</p>
-            <button class="commentBtn">Comment</button>
-            {{/each}}
+        {{#each article}}
+        <a target="_blank" href="{{this.link}}">
+            <h3>{{this.headline}}</h3>
+        </a>
+        <p>{{this.summary}}</p>
+        <button class="view-add-comments" data-id="{{this.id}}">View/Add Comments</button>
+        {{/each}}
     </div>
+    <div class="col-md-6" id="comment-div">
+        <form id="comment-form">
+            Name: <input type="text" class="user-name" name="usrname">
+            <textarea name="comment" class="comment-text" form="usrform">Enter comment here...</textarea>
+            <input type="submit" class="submit-btn" data-id="{{article.id}}">
+        </form>
+        <div id="comments"></div>
+        </div>
 </div>
