@@ -88,6 +88,7 @@ app.get("/scrape", function(req, res) {
 
 // Route for getting all Articles from the db
 app.get("/", function(req, res) {
+
   db.Article.find({})
     .then(function(dbArticle) {
       var articleArray = [];
@@ -143,6 +144,25 @@ app.post("/articles/:id", function(req, res) {
       res.json(err);
     });
 });
+
+app.get("/api/articles/:id", function(req, res){
+  db.Article.findById(req.params.id)
+  .populate("comment")
+  .then(function(dbArticle) {
+    console.log(dbArticle);
+    res.json(dbArticle);
+  })
+  .catch(function(err) {
+    // If an error occurs, send it back to the client
+    res.json(err);
+  });
+});
+
+app.delete("/delete/:id", function(req, res){
+  db.Comment.findByIdAndRemove(req.params.id, function(err){
+    res.json(err);
+  })
+})
 
 // Start the server
 app.listen(PORT, function() {

@@ -25,7 +25,7 @@ $(document).ready(function () {
     $("#comment-div").prepend(title);
     $.ajax({
       method: "GET",
-      url: "/articles/" + articleID
+      url: "/api/articles/" + articleID
     })
       // With that done, add the note information to the page
       .then(function (data) {
@@ -84,6 +84,19 @@ $(document).ready(function () {
       console.log("fuck this!!!");
       var commentID = $(this).attr("data-id");
       console.log(commentID);
+      $.ajax({
+        method: "DELETE",
+        url: "/delete/" + commentID,
+        success: function(data) {
+          console.log("comment deleted")
+        },
+        error: function() {
+          console.log("error");
+        }
+      })
+        .then(function () {
+          location.reload();
+        });
     });
   })
 });
