@@ -2,6 +2,16 @@ $(document).ready(function () {
   console.log("ready");
   $("#comment-div").hide();
 
+  $("#scrape").on("click", function () {
+    // console.log("scraping for new articles")
+    $.ajax({
+      method: "GET",
+      url: "/scrape"
+    }).then(function (data) {
+      console.log("scraped /n/n" + data)
+    })
+    location.reload();
+  });
 
   $(".view-add-comments").on("click", function () {
     var articleID = $(this).attr("data-id");
@@ -24,7 +34,7 @@ $(document).ready(function () {
         if (commentArray) {
           // for (var i=0; i<commentArray.length; i++) {
           var userName = $("<h3>");
-          userName.text(commentArray.name + "'s Two Sense:");
+          userName.text(commentArray.name + "'s Two Cents:");
           var userComment = $("<p>");
           userComment.text(commentArray.body);
           var deleteBtn = $("<button>");
@@ -38,7 +48,7 @@ $(document).ready(function () {
           // }
         }
         else {
-          var noComment = $("<h3>");
+          var noComment = $("<p>");
           noComment.text("Be the first to add a comment");
           $("#comments").append(noComment);
         };
@@ -66,11 +76,12 @@ $(document).ready(function () {
         });
       $(".user-name").val("");
       $("#usercomment").val("");
+      location.reload();
     });
 
-    $("#delete-btn").click(function() {
+    $("#comment-div").on("click", "#delete-btn", function () {
       event.preventDefault();
-      console.log("fuck!!!");
+      console.log("fuck this!!!");
       var commentID = $(this).attr("data-id");
       console.log(commentID);
     });
