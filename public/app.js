@@ -44,11 +44,14 @@ $(document).ready(function () {
         };
       });
 
-    $(".submit-btn").on("click", function () {
+    $(".submit-btn").on("click", function (event) {
       event.preventDefault();
+      console.log($(".user-name").val());
+      console.log($("#usercomment").text());
+
       var newComment = {
         name: $(".user-name").val(),
-        body: $(".comment-text").val()
+        body: $("#usercomment").val()
       }
       console.log(newComment);
       console.log(articleID);
@@ -59,9 +62,10 @@ $(document).ready(function () {
       })
         .then(function (data) {
           console.log("added: " + data);
+          console.log(JSON.stringify(data));
         });
       $(".user-name").val("");
-      $(".comment-text").val("");
+      $("#usercomment").val("");
     });
 
     $("#delete-btn").click(function() {
