@@ -33,7 +33,7 @@ $(document).ready(function () {
         var commentArray = data.comment;
         if (commentArray) {
           // for (var i=0; i<commentArray.length; i++) {
-          var userName = $("<h3>");
+          var userName = $("<h5>");
           userName.text(commentArray.name + "'s Two Cents:");
           var userComment = $("<p>");
           userComment.text(commentArray.body);
@@ -42,8 +42,8 @@ $(document).ready(function () {
           deleteBtn.attr("id", "delete-btn");
           deleteBtn.attr("type", "button");
           deleteBtn.attr("data-id", commentArray._id);
-          userName.append(userComment);
           $("#comments").append(userName);
+          $("#comments").append(userComment);
           $("#comments").append(deleteBtn);
           // }
         }

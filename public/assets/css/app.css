@@ -1,5 +1,5 @@
 body { 
-    background: url(../images/pina-messina-Sw2XNTgA-wc-unsplash.jpg) no-repeat center center fixed; 
+    background: url(../images/michael-longmire-3Mu0iQgLQto-unsplash.jpg) no-repeat center center fixed; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -7,5 +7,23 @@ body {
   }
   
   .container {
-    background-color: white;
+    background: url(../images/creampaper.png) repeat;
+  }
+
+  .jumbotron {
+    background: url(../images/creampaper.png) repeat;
+    border: darkslategray;
+    border-style: solid;
+    border-width: 2px;
+  }
+
+  .card {
+    border: darkslategray;
+    border-style: solid;
+    border-width: .5px;
+    margin-top: 10px;
+  }
+
+  a {
+    color: black;
   }

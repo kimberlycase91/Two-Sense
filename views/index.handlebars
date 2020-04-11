@@ -1,41 +1,37 @@
 <div class="jumbotron">
-    <h1 class="display-4">Two Sense</h1>
-    <p class="lead">Get a <strong>sense</strong> of what's going on in the world, and add your <strong>two</strong>
-        cents!</p>
-    <hr class="my-4">
-    <button class="btn btn-primary btn-lg" id="scrape">Click for Newest Articles</button>
+        <h3 class="display-4 font-weight-bold">Two Sense</h3>
+        <p class="lead">Get a <strong>sense</strong> of what's going on in the world, and add your <strong>two</strong>
+            cents!</p>
+        <button class="btn btn-secondary btn-lg" id="scrape">Click for Newest Articles</button>
 </div>
 
-<div class="container">
-    <h2>Recent Headlines:</h2>
-    <div class="container" id="comment-div">
-        <form id="comment-form">
-            <div class="form-group">
-                <label for="username">Name</label>
-                <input type="text" class="form-control user-name" id="user-name">
-            </div>
 
-            <div class="form-group">
-                <textarea class="form-control comment-text" id="usercomment" rows="3"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary submit-btn" data-id="{{article.id}}">Submit</button>
-        </form>
-        <div id="comments"></div>
-    </div>
-    <div class="container">
-        {{#each article}}
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body">
-                    <a target="_blank" href="{{this.link}}">
-                        <h5 class="card-title">{{this.headline}}</h5>
-                    </a>
-                    <p class="card-text">{{this.summary}}</p>
-                    <button class="view-add-comments btn btn-secondary" data-id="{{this.id}}"
-                        data-title="{{this.headline}}">View/Add Comments</button>
-                </div>
-            </div>
+<div class="container" id="comment-div">
+    <form id="comment-form">
+        <div class="form-group">
+            <label for="username">Name</label>
+            <input type="text" class="form-control user-name" id="user-name">
         </div>
-        {{/each}}
+
+        <div class="form-group">
+            <textarea class="form-control comment-text" id="usercomment" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-secondary submit-btn" data-id="{{article.id}}">Submit</button>
+    </form>
+    <div id="comments"></div>
+</div>
+
+{{#each article}}
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <a target="_blank" href="{{this.link}}">
+                <h5 class="card-title">{{this.headline}}</h5>
+            </a>
+            <p class="card-text">{{this.summary}}</p>
+            <button class="view-add-comments btn btn-secondary" data-id="{{this.id}}"
+                data-title="{{this.headline}}">View/Add Comments</button>
+        </div>
     </div>
 </div>
+{{/each}}
