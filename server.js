@@ -108,7 +108,7 @@ app.get("/articles/:id", function(req, res) {
   // route so it finds one article using the req.params.id,
   // and run the populate method with "note",
   // then responds with the article with the note included
-  db.Article.findOne({_id: req.params.id})
+  db.Article.findById(req.params.id)
     // Specify that we want to populate the retrieved libraries with any associated books
     .populate("comment")
     .then(function(dbArticle) {

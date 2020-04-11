@@ -2,6 +2,7 @@ $(document).ready(function () {
   console.log("ready");
   $("#comment-div").hide();
 
+
   $(".view-add-comments").on("click", function () {
     var articleID = $(this).attr("data-id");
     console.log(articleID);
@@ -13,17 +14,22 @@ $(document).ready(function () {
     })
       // With that done, add the note information to the page
       .then(function (data) {
-        console.log(data.comment);
+        console.log(data);
         var commentArray = data.comment;
-        console.log(commentArray);
         if (commentArray) {
           // for (var i=0; i<commentArray.length; i++) {
-            var userName = $("<h3>");
-            userName.text(commentArray.name);
-            var userComment = $("<p>");
-            userComment.text(commentArray.body);
-            userName.append(userComment);
-            $("#comments").append(userName);
+          var userName = $("<h3>");
+          userName.text(commentArray.name + "'s Two Sense:");
+          var userComment = $("<p>");
+          userComment.text(commentArray.body);
+          var deleteBtn = $("<button>");
+          deleteBtn.text("Delete");
+          deleteBtn.attr("id", "delete-btn");
+          deleteBtn.attr("type", "button");
+          deleteBtn.attr("data-id", commentArray._id);
+          userName.append(userComment);
+          $("#comments").append(userName);
+          $("#comments").append(deleteBtn);
           // }
         }
         else {
@@ -32,9 +38,9 @@ $(document).ready(function () {
           $("#comments").append(noComment);
         };
       });
-
-
-    $(".submit-btn").on("click", function () {
+  });
+  
+  $(".submit-btn").on("click", function () {
       event.preventDefault();
       var newComment = {
         name: $(".user-name").val(),
@@ -53,5 +59,11 @@ $(document).ready(function () {
       $(".user-name").val("");
       $(".comment-text").val("");
     });
-  })
+
+    $("#delete-btn").click(function() {
+      event.preventDefault();
+      console.log("fuck!!!");
+      var commentID = $(this).attr("data-id");
+      console.log(commentID);
+    });
 });
