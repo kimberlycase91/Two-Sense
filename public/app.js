@@ -5,9 +5,14 @@ $(document).ready(function () {
 
   $(".view-add-comments").on("click", function () {
     var articleID = $(this).attr("data-id");
+    var articleTitle = $(this).attr("data-title");
     console.log(articleID);
+    console.log(articleTitle);
     $("#comment-div").show();
     $("#comments").empty();
+    var title = $("<h2>");
+    title.text(articleTitle);
+    $("#comment-div").prepend(title);
     $.ajax({
       method: "GET",
       url: "/articles/" + articleID
@@ -38,9 +43,8 @@ $(document).ready(function () {
           $("#comments").append(noComment);
         };
       });
-  });
-  
-  $(".submit-btn").on("click", function () {
+
+    $(".submit-btn").on("click", function () {
       event.preventDefault();
       var newComment = {
         name: $(".user-name").val(),
@@ -66,4 +70,5 @@ $(document).ready(function () {
       var commentID = $(this).attr("data-id");
       console.log(commentID);
     });
+  })
 });
