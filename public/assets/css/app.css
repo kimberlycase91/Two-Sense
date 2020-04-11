@@ -10,6 +10,9 @@ body {
     background: url(../images/creampaper.png) repeat;
   }
 
+  body {
+    font-family: 'Girassol', cursive;
+  }
   .jumbotron {
     background: url(../images/creampaper.png) repeat;
     border: darkslategray;
@@ -26,4 +29,12 @@ body {
 
   a {
     color: black;
+  }
+
+  p {
+    font-size: 20px;
+  }
+
+  .lead {
+    font-size: 25px;
   }

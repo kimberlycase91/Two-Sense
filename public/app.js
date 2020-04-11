@@ -20,7 +20,8 @@ $(document).ready(function () {
     console.log(articleTitle);
     $("#comment-div").show();
     $("#comments").empty();
-    var title = $("<h2>");
+    // var title = $("<h3>");
+    var title = $("#title");
     title.text(articleTitle);
     $("#comment-div").prepend(title);
     $.ajax({
@@ -39,6 +40,7 @@ $(document).ready(function () {
           userComment.text(commentArray.body);
           var deleteBtn = $("<button>");
           deleteBtn.text("Delete");
+          deleteBtn.addClass("btn btn-secondary");
           deleteBtn.attr("id", "delete-btn");
           deleteBtn.attr("type", "button");
           deleteBtn.attr("data-id", commentArray._id);

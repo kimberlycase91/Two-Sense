@@ -7,6 +7,7 @@
 
 
 <div class="container" id="comment-div">
+    <h3 id="title"></h3>
     <form id="comment-form">
         <div class="form-group">
             <label for="username">Name</label>
@@ -26,7 +27,7 @@
     <div class="card">
         <div class="card-body">
             <a target="_blank" href="{{this.link}}">
-                <h5 class="card-title">{{this.headline}}</h5>
+                <h3 class="card-title">{{this.headline}}</h5>
             </a>
             <p class="card-text">{{this.summary}}</p>
             <button class="view-add-comments btn btn-secondary" data-id="{{this.id}}"

@@ -92,7 +92,7 @@ app.get("/", function(req, res) {
   db.Article.find({})
     .then(function(dbArticle) {
       var articleArray = [];
-      for (var i=0; i <10; i++){
+      for (var i=0; i < dbArticle.length; i++){
         articleArray.push({headline: dbArticle[i].title, link: dbArticle[i].link, summary: dbArticle[i].summary, id: dbArticle[i]._id});
     }
       res.render("index", {article: articleArray});
